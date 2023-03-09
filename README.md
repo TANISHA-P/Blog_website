@@ -1,5 +1,5 @@
 # Blog_website
-A website where users can add, delete, view posts
+A website where users can add, delete their posts and view posts. 
 
 
 Steps:
