@@ -21,7 +21,8 @@ def register(request):
             return redirect('blog-home')
         else:
             messages.error(request,f'Error while creating Account! Please try again')
-            return render(request,'users/register.html')
+            return redirect('users-register')
+            # return render(request,'users/register.html')
     else:
         form = UserRegisterForm()
         return render(request, 'users/register.html',{"form":form})
@@ -51,7 +52,7 @@ def profile(request):
 def another_person_profile(request, data): #accepting an extra parameter along with request.
     the_other_user = User.objects.filter(username = data).first()
     if(the_other_user):
-        print(the_other_user.email)
+        # print(the_other_user.email)
         return render(request,'users/other_profile.html',{"otheruser":the_other_user})
     else:
         return render(request,'users/no_user.html')

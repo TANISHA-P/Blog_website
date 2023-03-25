@@ -1,0 +1,17 @@
+{% extends 'blog/base.html' %}
+
+{% block different_content %}
+    <article class="d-flex align-items-center content-section">
+        <div class="flex-shrink-0"><img class="rounded-circle article-img " src = "{{ post.author.profile.image.url }}"></div>
+        <div class="flex-grow-1 ms-3">
+        <div class="article-metadata d-flex justify-content-between">
+            <div>
+            <a href="{% url 'another_user-profile' post.author %}">{{ post.author }}</a>
+            </div>
+            <small class="text-muted" style="text-align: right;">{{post.date_posted|date:"F d, Y"}}</small>
+        </div>
+        <h2 class="article-title">{{ post.title }}</a></h2>
+        <p class="article-content">{{ post.content }}</p>
+        </div>
+    </article>
+{% endblock different_content %}
