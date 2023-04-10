@@ -12,6 +12,11 @@
         </div>
         <h2 class="article-title">{{ post.title }}</a></h2>
         <p class="article-content">{{ post.content }}</p>
+
+        {% if post.author == user %}
+            <a href="{% url 'blog-update' post.title %}">Update Post</a>
+        {% endif %}
+        
         </div>
     </article>
 {% endblock different_content %}
