@@ -56,9 +56,13 @@ def post_create(request):
         form = PostCreateForm()
         return render(request, 'blog/post_create.html', {'form':form})
     
-
+@login_required
 def post_update(request,data):
-    if request.method == "POST":
+    gained_post = Post.objects.get(title = data)
+    if gained_post.author != request.user:
+        messages.error(request,f'Error')
+        return redirect('blog-home')
+    elif request.method == "POST":
         form = PostUpdateForm(request.POST)
         # print(form.is_valid())
         
@@ -78,5 +82,16 @@ def post_update(request,data):
         tempform = PostUpdateForm()
         tempform.fields['title'].initial = instance1.title
         tempform.fields['content'].initial = instance1.content
-        
+
         return render(request,'blog/post_update.html',{'form':tempform})
+
+@login_required
+def post_delete(request,data):
+    gained_post = Post.objects.get(title = data)
+    if gained_post.author != request.user:
+        messages.error(request,f'Error')
+        return redirect('blog-home')
+    else:
+        messages.success(request, f'Post deleted Successfully!')
+        gained_post.delete()
+        return redirect('blog-home')

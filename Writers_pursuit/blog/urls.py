@@ -9,5 +9,6 @@ urlpatterns = [
     path('about/',views.about,name = "blog-about"),
     path('post/create/',views.post_create,name="blog-create"),
     path('post/<data>/',views.detailed_content, name = "blog-detail"), #here data has to be the title of the blog
-    path('post/<data>/update',views.post_update, name = "blog-update"), #here data has to be the title of the blog
+    path('post/<data>/update/',views.post_update, name = "blog-update"), #here data has to be the title of the blog
+    path('post/<data>/delete/',views.post_delete,name = "blog-delete"),
 ]

@@ -10,13 +10,13 @@
             </div>
             <small class="text-muted" style="text-align: right;">{{post.date_posted|date:"F d, Y"}}</small>
         </div>
+        
         <h2 class="article-title">{{ post.title }}</a></h2>
         <p class="article-content">{{ post.content }}</p>
-
         {% if post.author == user %}
-            <a href="{% url 'blog-update' post.title %}">Update Post</a>
+            <a class="btn btn-secondary" href="{% url 'blog-update' post.title %}">Update Post</a>
+            <a class="btn btn-danger" href="{% url 'blog-delete' post.title %}">Delete Post</a>
         {% endif %}
-        
         </div>
     </article>
 {% endblock different_content %}
