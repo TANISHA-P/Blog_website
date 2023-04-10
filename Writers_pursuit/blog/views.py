@@ -1,7 +1,9 @@
 from django.shortcuts import render,redirect
 from django.contrib import messages
 from .models import Post
-from .forms import PostCreateForm
+from .forms import PostCreateForm, PostUpdateForm
+from django.contrib.auth.decorators import login_required
+
 # from django.views.generic import ListView
 
 # Create your views here.
@@ -29,6 +31,7 @@ def detailed_content(request,data):
     else:
         return render(request,'blog/no_content.html')
 
+@login_required
 def post_create(request):
     if request.method == 'POST':
         form = PostCreateForm(request.POST)
@@ -37,12 +40,43 @@ def post_create(request):
             newpost.title = form.cleaned_data.get('title')
             newpost.content = form.cleaned_data.get('content')
             newpost.author = request.user
-            newpost.save()
-            messages.success(request, f'Post created Successfully!')
-            return redirect('blog-home')
+
+            already_exist = Post.objects.filter(title = newpost.title).count()
+            if already_exist > 0:
+                messages.error(request,f'A Post with following title already exists!')
+                return redirect('blog-create')
+            else:
+                newpost.save()
+                messages.success(request, f'Post created Successfully!')
+                return redirect('blog-detail',newpost.title)
         else:
             messages.error(request,f'Error while creating the post')
             return redirect('blog-create')
     else:
         form = PostCreateForm()
-        return render(request, 'blog/post_create.html',{'form':form})
+        return render(request, 'blog/post_create.html', {'form':form})
+    
+
+def post_update(request,data):
+    if request.method == "POST":
+        form = PostUpdateForm(request.POST)
+        # print(form.is_valid())
+        
+        if form.is_valid():
+            updatedpost = Post.objects.get(title = data)
+            updatedpost.title = request.POST.get('title')
+            updatedpost.content = request.POST.get('content')
+            updatedpost.save()
+            messages.success(request, f'Post updated Successfully!')
+            return redirect('blog-detail',request.POST.get('title'))
+        else:
+            # print(form.errors)
+            messages.error(request,f'Error while updating the post')
+            return redirect('blog-update',data)
+    else:
+        instance1 = Post.objects.get(title = data)
+        tempform = PostUpdateForm()
+        tempform.fields['title'].initial = instance1.title
+        tempform.fields['content'].initial = instance1.content
+        
+        return render(request,'blog/post_update.html',{'form':tempform})
