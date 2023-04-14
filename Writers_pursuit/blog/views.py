@@ -3,7 +3,7 @@ from django.contrib import messages
 from .models import Post
 from .forms import PostCreateForm, PostUpdateForm
 from django.contrib.auth.decorators import login_required
-from django.core.paginator import Paginator, EmptyPage
+from django.core.paginator import Paginator
 
 # from django.views.generic import ListView
 

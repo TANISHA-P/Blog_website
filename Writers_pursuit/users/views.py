@@ -5,7 +5,8 @@ from django.contrib.auth.decorators import login_required
 from .models import Profile
 from django.contrib.auth.models import User
 from .forms import UserUpdateForm,ProfileUpdateForm
-
+from blog.models import Post
+from django.core.paginator import Paginator
 
 def register(request):
     if request.method == 'POST':
@@ -49,10 +50,17 @@ def profile(request):
     return render(request,'users/profile.html', context)
 
 
-def another_person_profile(request, data): #accepting an extra parameter along with request.
+def another_person_profile(request, data, pageno=1): #accepting extra parameters along with request.
     the_other_user = User.objects.filter(username = data).first()
     if(the_other_user):
+        their_posts = Post.objects.filter(author = the_other_user)
+        their_posts = Paginator(their_posts,5)
+
         # print(the_other_user.email)
-        return render(request,'users/other_profile.html',{"otheruser":the_other_user})
+        info = {
+            "otheruser" : the_other_user,
+            "posts" : their_posts.get_page(pageno)
+        }
+        return render(request,'users/other_profile.html',info)
     else:
         return render(request,'users/no_user.html')
