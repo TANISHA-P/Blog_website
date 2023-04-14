@@ -21,4 +21,22 @@
           </div>
         </article>
     {% endfor %}
+
+    {% if posts.has_previous %}
+      <a class="btn btn-outline-info mb-4" href="{% url 'blog-home' 1 %}">first</a>
+      <a class="btn btn-outline-info mb-4" href="{% url 'blog-home' posts.previous_page_number %}">previous</a>
+    {% endif %}
+    
+    {% for num in posts.paginator.page_range %}
+      {% if posts.number == num %}
+        <a class="btn btn-info mb-4" href="{% url 'blog-home' num %}">{{num}}</a>
+      {% elif num > posts.number|add:'-3' and num < posts.number|add:'3' %}
+        <a class="btn btn-outline-info mb-4" href="{% url 'blog-home' num %}">{{num}}</a>
+      {% endif %}
+    {% endfor %}
+
+    {% if posts.has_next %}
+      <a class="btn btn-outline-info mb-4" href="{% url 'blog-home' posts.next_page_number %}">next</a>
+      <a class="btn btn-outline-info mb-4" href="{% url 'blog-home' posts.paginator.num_pages %}">last</a>
+    {% endif %}
 {% endblock different_content %}

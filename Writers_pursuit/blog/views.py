@@ -3,13 +3,16 @@ from django.contrib import messages
 from .models import Post
 from .forms import PostCreateForm, PostUpdateForm
 from django.contrib.auth.decorators import login_required
+from django.core.paginator import Paginator, EmptyPage
 
 # from django.views.generic import ListView
 
 # Create your views here.
-def home(request):
+def home(request,pageno):
+    posts = Post.objects.all().order_by('-date_posted')
+    paginated = Paginator(posts,5)
     context = {
-        'posts' : Post.objects.all().order_by('-date_posted'),
+        'posts' : paginated.get_page(pageno),
         'title' : 'Home'
     }
     return render(request, 'blog/home.html',context) #All html files must be in templates folder.
