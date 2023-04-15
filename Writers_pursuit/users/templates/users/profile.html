@@ -10,7 +10,8 @@
             <p class="text-secondary">{{ user.email }}</p>
         </div>
         </div>
-        
+        <a class="btn btn-info" href="{% url 'another_user-profile' user.username %}">View Posts</a>
+        <legend class="mt-5"></legend>
         <form method="post" enctype="multipart/form-data">
             {% csrf_token %}
             <fieldset class="mb-3">

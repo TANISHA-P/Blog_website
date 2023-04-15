@@ -53,7 +53,7 @@ def profile(request):
 def another_person_profile(request, data, pageno=1): #accepting extra parameters along with request.
     the_other_user = User.objects.filter(username = data).first()
     if(the_other_user):
-        their_posts = Post.objects.filter(author = the_other_user)
+        their_posts = Post.objects.filter(author = the_other_user).order_by('-date_posted')
         their_posts = Paginator(their_posts,5)
 
         # print(the_other_user.email)
