@@ -42,6 +42,7 @@ def post_create(request):
             newpost = Post()
             newpost.title = form.cleaned_data.get('title')
             newpost.content = form.cleaned_data.get('content')
+            newpost.stripped_content = newpost.content[:min(700,len(newpost.content))]
             newpost.author = request.user
 
             already_exist = Post.objects.filter(title = newpost.title).count()
@@ -73,6 +74,7 @@ def post_update(request,data):
             updatedpost = Post.objects.get(title = data)
             updatedpost.title = request.POST.get('title')
             updatedpost.content = request.POST.get('content')
+            updatedpost.stripped_content = updatedpost.content[:min(700,len(updatedpost.content))]
             updatedpost.save()
             messages.success(request, f'Post updated Successfully!')
             return redirect('blog-detail',request.POST.get('title'))
