@@ -64,3 +64,12 @@ def another_person_profile(request, data, pageno=1): #accepting extra parameters
         return render(request,'users/other_profile.html',info)
     else:
         return render(request,'users/no_user.html')
+    
+def search_user(request):
+    if request.method == 'POST':
+        print(request.POST)
+        data = request.POST.get('user_name')
+        print(data)
+        return redirect("another_user-profile",data=data)
+    else:
+        return render(request,'blog-home')

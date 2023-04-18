@@ -13,4 +13,5 @@ urlpatterns = [
     path('profile/', views.profile,name="users-profile"),
     path('user_profile/<data>/',views.another_person_profile, name="another_user-profile"), #django dispatcher concept. i.e, passing info through the url.
     path('user_profile/<data>/<int:pageno>',views.another_person_profile, name="another_user-profilee"),
+    path('search_user/',views.search_user, name="search_user"),
 ]
