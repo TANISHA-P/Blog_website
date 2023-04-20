@@ -11,13 +11,14 @@ class Profile(models.Model):
 
     def __str__(self):
         return f'{self.user.username} Profile'
-
-    def save(self,*args, **kwargs):
-        super().save(*args, **kwargs)
-        img = Image.open(self.image.path)
-        if img.height > 300 or img.width > 300:
-            output_size = (min(img.height,300),min(img.width,300))
-            img.thumbnail(output_size) #thumbnail image is smaller sized version of the actual image
-            img.save(self.image.path)
+ 
+    #This is used for resizing images when using file system.
+    # def save(self,*args, **kwargs):
+    #     super().save(*args, **kwargs)
+    #     img = Image.open(self.image.path)
+    #     if img.height > 300 or img.width > 300:
+    #         output_size = (min(img.height,300),min(img.width,300))
+    #         img.thumbnail(output_size) #thumbnail image is smaller sized version of the actual image
+    #         img.save(self.image.path)
 
         
