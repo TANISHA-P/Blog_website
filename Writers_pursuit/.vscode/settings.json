@@ -1,3 +1,5 @@
 {
-    "python.analysis.typeCheckingMode": "basic"
+    "python.analysis.typeCheckingMode": "basic",
+    "appService.defaultWebAppToDeploy": "/subscriptions/b5afcf09-2076-4fdb-b0c1-00988c4cef2e/resourceGroups/appsvc_linux_centralus/providers/Microsoft.Web/sites/writers-pursuit",
+    "appService.deploySubpath": "."
 }
