@@ -30,6 +30,7 @@ DEBUG = False
 # ALLOWED_HOSTS = ['writers-pursuit.azurewebsites.net']
 ALLOWED_HOSTS = ['*']
 
+SECURE_CROSS_ORIGIN_OPENER_POLICY = None
 
 # Application definition
 
