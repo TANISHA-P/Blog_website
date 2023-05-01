@@ -25,7 +25,7 @@ print(BASE_DIR)
 SECRET_KEY = 'django-insecure-7lm6^19f=)qf975m*mjrp)&jw@1w^bijtov#bgl@%w8hv58t@-'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 # ALLOWED_HOSTS = ['writers-pursuit.azurewebsites.net']
 ALLOWED_HOSTS = ['*']
@@ -76,7 +76,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'Writers_pursuit.wsgi.application'
+WSGI_APPLICATION = 'Writers_pursuit.wsgi:application'
 
 
 # Database
