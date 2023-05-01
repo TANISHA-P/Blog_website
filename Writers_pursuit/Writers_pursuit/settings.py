@@ -76,7 +76,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'Writers_pursuit.wsgi:application'
+WSGI_APPLICATION = 'Writers_pursuit.wsgi.application'
 
 
 # Database
